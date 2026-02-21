@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark tech theme with cyan/teal accents */
+    --background: 200 50% 4%;
+    --foreground: 200 20% 96%;
+
+    --card: 200 45% 6%;
+    --card-foreground: 200 20% 96%;
+
+    --popover: 200 45% 6%;
+    --popover-foreground: 200 20% 96%;
+
+    --primary: 165 76% 47%;
+    --primary-foreground: 200 50% 4%;
+
+    --secondary: 200 30% 12%;
+    --secondary-foreground: 200 20% 96%;
+
+    --muted: 200 20% 18%;
+    --muted-foreground: 200 15% 65%;
+
+    --accent: 165 76% 47%;
+    --accent-foreground: 200 50% 4%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 20% 15%;
+    --input: 200 20% 15%;
+    --ring: 165 76% 47%;
+
+    --radius: 1rem;
+
+    /* Custom colors */
+    --whatsapp: 142 70% 49%;
+    --whatsapp-glow: 142 70% 40%;
+    --gold: 45 93% 58%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(165 76% 47%), hsl(180 60% 35%));
+    --gradient-dark: linear-gradient(180deg, hsl(200 45% 8%), hsl(200 50% 4%));
+    --gradient-card: linear-gradient(180deg, hsl(200 40% 8%), hsl(200 50% 5%));
+    --gradient-glow: radial-gradient(circle at center, hsl(165 76% 47% / 0.15), transparent 70%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 60px hsl(165 76% 47% / 0.2);
+    --shadow-card: 0 25px 50px -12px hsl(200 50% 2% / 0.8);
+    --shadow-whatsapp: 0 15px 40px hsl(142 70% 49% / 0.35);
+    
+    /* Animation timing */
+    --anim-duration: 0.5s;
+    --anim-easing: cubic-bezier(0.2, 0.9, 0.2, 1);
+  }
+
+  .dark {
+    --background: 200 50% 4%;
+    --foreground: 200 20% 96%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: var(--gradient-dark);
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  /* Hero section styles */
+  .hero-gradient {
+    background: 
+      linear-gradient(180deg, hsl(200 50% 4% / 0.5), hsl(200 50% 4% / 0.9)),
+      var(--hero-image, hsl(200 50% 4%));
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Cards with glass effect */
+  .glass-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(200 20% 20% / 0.5);
+    backdrop-filter: blur(10px);
+    transition: transform var(--anim-duration) var(--anim-easing),
+                box-shadow var(--anim-duration) var(--anim-easing);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: var(--shadow-card), 0 0 40px hsl(165 76% 47% / 0.1);
+  }
+
+  /* Primary gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effect */
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Badge styles */
+  .badge-primary {
+    @apply inline-block px-4 py-1.5 rounded-full text-sm font-semibold;
+    background: hsl(165 76% 47% / 0.15);
+    color: hsl(var(--primary));
+  }
+
+  /* WhatsApp button */
+  .btn-whatsapp {
+    @apply inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg;
+    background: hsl(var(--whatsapp));
+    color: hsl(200 50% 4%);
+    box-shadow: var(--shadow-whatsapp);
+    transition: transform 0.25s var(--anim-easing),
+                box-shadow 0.25s var(--anim-easing);
+  }
+
+  .btn-whatsapp:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 50px hsl(142 70% 49% / 0.5);
+  }
+
+  /* WhatsApp floating button */
+  .whatsapp-float {
+    @apply fixed z-50 flex items-center justify-center rounded-full;
+    width: 64px;
+    height: 64px;
+    right: 20px;
+    bottom: 20px;
+    background: hsl(var(--whatsapp));
+    box-shadow: var(--shadow-whatsapp);
+    transition: transform 0.2s var(--anim-easing),
+                box-shadow 0.2s var(--anim-easing);
+  }
+
+  .whatsapp-float:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 25px 60px hsl(142 70% 49% / 0.5);
+  }
+
+  /* Pulse animation for WhatsApp */
+  .pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(142 70% 49% / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 15px hsl(142 70% 49% / 0);
+    }
+  }
+
+  /* Step indicator */
+  .step-indicator {
+    @apply flex items-center justify-center w-10 h-10 rounded-full font-bold text-sm;
+    background: var(--gradient-primary);
+    color: hsl(200 50% 4%);
+  }
+
+  /* Stars for reviews */
+  .star {
+    color: hsl(var(--gold));
+  }
+
+  /* Section highlight */
+  .section-highlight {
+    background: linear-gradient(135deg, 
+      hsl(165 76% 47% / 0.08),
+      hsl(200 60% 40% / 0.05)
+    );
+    border-radius: var(--radius);
+  }
+
+  /* Header blur */
+  .header-blur {
+    background: hsl(200 50% 4% / 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid hsl(200 20% 20% / 0.3);
+  }
+
+  /* Animate on scroll */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--anim-duration) var(--anim-easing),
+                transform var(--anim-duration) var(--anim-easing);
+  }
+
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Carousel */
+  .carousel-track {
+    animation: carousel-scroll 25s linear infinite;
+  }
+
+  @keyframes carousel-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
